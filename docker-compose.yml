@@ -1,31 +1,38 @@
-version: '3'
+version: '3.8'
 
 services:
   payload:
-    image: node:18-alpine
-    ports:
-      - '3000:3000'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - HOSTNAME=devserver1
+    healthcheck:
+      # test: 'wget -qO- ${NEXT_PUBLIC_BASE_URL}/healthcheck || exit 1'
+      test: 'true || exit 1'
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    expose:
+      - 3000    
     volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "yarn install && yarn dev"
-    depends_on:
-      - mongo
-    env_file:
-      - .env
+      - node_app:/app
+      # - node_modules:/app/node_modules
+    working_dir: /app/
 
-  mongo:
-    image: mongo:latest
-    ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
-    volumes:
-      - data:/data/db
-    logging:
-      driver: none
+  # mongo:
+  #   image: mongo:latest
+  #   ports:
+  #     - '27017:27017'
+  #   command:
+  #     - --storageEngine=wiredTiger
+  #   volumes:
+  #     - data:/data/db
+  #   logging:
+  #     driver: none
 
 volumes:
-  data:
-  node_modules:
+  node_app:
+  # data:
+  # node_modules:
