@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      - HOSTNAME=devserver1
     healthcheck:
       # test: 'wget -qO- ${NEXT_PUBLIC_BASE_URL}/healthcheck || exit 1'
       test: 'true || exit 1'
