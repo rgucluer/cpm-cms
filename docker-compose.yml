@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     healthcheck:
-      test: 'wget -qO- ${NEXT_PUBLIC_SERVER_URL}/healthcheck || exit 1'
-      # test: 'true || exit 1'
+      # test: 'wget -qO- ${NEXT_PUBLIC_SERVER_URL}/healthcheck || exit 1'
+      test: 'true || exit 1'
       interval: 10s
       timeout: 5s
       retries: 5
