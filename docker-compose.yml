@@ -17,24 +17,6 @@ services:
     volumes:
       - node_app:/app
     working_dir: /app/
-    labels:
-      - coolify.managed=true
-      - coolify.proxy=true
-      - traefik.enable=true
-      - 'traefik.http.routers.payload-web.rule=Host(`www.iact.dev`) && PathPrefix(`/`)'
-      - traefik.http.routers.payload-web.entryPoints[0]=http
-      - traefik.http.routers.payload-https.service=noop@internal
-      - traefik.http.routers.payload-web.middlewares=redirect-to-https
-      - traefik.http.services.payload.loadbalancer.server.port=80
-
-      - 'traefik.http.routers.payload-https.rule=Host(`www.iact.dev`) && PathPrefix(`/`)'
-      - traefik.http.routers.payload-https.entryPoints=https
-      - traefik.http.routers.payload-https.middlewares=gzip
-      - traefik.http.routers.payload-https.service=payload
-      - traefik.http.routers.payload-https.tls=true
-      - traefik.http.routers.payload-https.tls.certresolver=letsencrypt
-      - traefik.http.services.payload.loadbalancer.server.port=443
-
 volumes:
   node_app:
 
