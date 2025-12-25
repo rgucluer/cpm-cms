@@ -1,5 +1,8 @@
 version: '3.8'
-
+name: payload
+networks:
+  coolify:
+    external: true
 services:
   payload:
     build:
@@ -17,6 +20,8 @@ services:
     volumes:
       - node_app:/app
     working_dir: /app/
+    networks:
+      - coolify
 volumes:
   node_app:
 
