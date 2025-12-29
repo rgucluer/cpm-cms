@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: Dockerfile
     healthcheck:
-      test: ["CMD", "curl", "-f", "https://localhost:3000/api/health"]
+      test: 'curl -f https://traefik.iact.dev/ping || exit 1'
       interval: 30s
       timeout: 7s
       retries: 5
