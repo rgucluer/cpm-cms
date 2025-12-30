@@ -10,7 +10,7 @@ services:
       dockerfile: Dockerfile
     healthcheck:
       # test: 'curl -f ${NEXT_PUBLIC_SERVER_URL}/api/health || exit 1'
-      test: true
+      test: 'true'
       interval: 10s
       timeout: 5s
       retries: 5
