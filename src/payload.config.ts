@@ -60,6 +60,15 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
+  endpoints: [
+    {
+      path: '/health',
+      method: 'get',
+      handler: async (req) => {
+        return Response.json({ message: 'OK' }, { status: 200 })
+      },
+    },
+  ],
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
