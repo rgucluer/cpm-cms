@@ -1,6 +1,7 @@
 name: payload
 networks:
   coolify:
+    name: coolify
     external: true
 services:
   payload:
