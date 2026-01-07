@@ -10,7 +10,7 @@ services:
       context: .
       dockerfile: Dockerfile
     healthcheck:
-      test: 'curl -f --head ${SERVICE_URL_PAYLOAD}/api/health || exit 1'
+      test: 'curl -f --head "http://${SERVICE_FQDN_PAYLOAD}/api/health" || exit 1'
       # test: 'curl -f ${SERVICE_URL_PAYLOAD}/api/health || exit 1'
       # test: 'true || exit 1'
       interval: 10s
