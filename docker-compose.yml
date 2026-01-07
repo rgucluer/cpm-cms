@@ -1,8 +1,9 @@
-name: payload
-networks:
-  coolify:
-    name: coolify
-    external: true
+version: '3.8'
+# name: payload
+# networks:
+#   coolify:
+#     name: coolify
+#     external: true
 services:
   payload:
     build:
@@ -10,30 +11,30 @@ services:
       dockerfile: Dockerfile
     healthcheck:
       # test: 'curl -f ${SERVICE_URL_PAYLOAD}/api/health || exit 1'
-      test: 'true'
+      test: 'true || exit 1'
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 45s
+      start_period: 15s
     expose:
       - 3000    
     volumes:
       - node_app:/app
     working_dir: /app/
-    networks:
-      - coolify
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.payload_https.rule=Host(`${SERVICE_FQDN_PAYLOAD}`) && PathPrefix(`/`)
-      - traefik.http.routers.payload_https.entryPoints=https
-      - traefik.http.routers.payload_https.middlewares=gzip
-      - traefik.http.routers.payload_https.service=payload
-      - traefik.http.routers.payload_https.tls=true
-      - traefik.http.services.payload.loadbalancer.server.port=443
-      - traefik.http.routers.payload_https.tls.certresolver=letsencrypt
-      - traefik.http.routers.payload_http.rule=Host(`${SERVICE_FQDN_PAYLOAD}`) && PathPrefix(`/`)
-      - traefik.http.routers.payload_http.entryPoints=http
-      - traefik.http.routers.payload_http.middlewares=redirect-to-https
+    # networks:
+    #   - coolify
+    # labels:
+    #   - traefik.enable=true
+    #   - traefik.http.routers.payload_https.rule=Host(`${SERVICE_FQDN_PAYLOAD}`) && PathPrefix(`/`)
+    #   - traefik.http.routers.payload_https.entryPoints=https
+    #   - traefik.http.routers.payload_https.middlewares=gzip
+    #   - traefik.http.routers.payload_https.service=payload
+    #   - traefik.http.routers.payload_https.tls=true
+    #   - traefik.http.services.payload.loadbalancer.server.port=443
+    #   - traefik.http.routers.payload_https.tls.certresolver=letsencrypt
+    #   - traefik.http.routers.payload_http.rule=Host(`${SERVICE_FQDN_PAYLOAD}`) && PathPrefix(`/`)
+    #   - traefik.http.routers.payload_http.entryPoints=http
+    #   - traefik.http.routers.payload_http.middlewares=redirect-to-https
 volumes:
   node_app:
 
