@@ -22,6 +22,10 @@ services:
     working_dir: /app/
     networks:
       - coolify
+    labels:
+      - 'traefik.http.middlewares.redirect-www-middleware.redirectregex.regex=^(http|https)://(?:www\.)?(.+)'
+      - 'traefik.http.middlewares.redirect-www-middleware.redirectregex.replacement=${1}://www.${2}'
+      - 'traefik.http.middlewares.redirect-www-middleware.redirectregex.permanent=true'
 volumes:
   node_app:
 
