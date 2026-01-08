@@ -10,7 +10,8 @@ services:
       context: .
       dockerfile: Dockerfile
     healthcheck:
-      test: 'curl -f --head ${SERVICE_URL_PAYLOAD} || exit 1'
+      # test: 'curl -f --head ${SERVICE_URL_PAYLOAD} || exit 1'
+      test: 'curl -f --head http://127.0.0.1:3000 || exit 1'
       # test: 'true'
       interval: 10s
       timeout: 5s
