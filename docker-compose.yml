@@ -1,9 +1,9 @@
 version: '3.8'
-# name: payload
-# networks:
-#   coolify:
-#     name: coolify
-#     external: true
+name: payload
+networks:
+  coolify:
+    name: coolify
+    external: true
 services:
   payload:
     build:
@@ -20,20 +20,8 @@ services:
     volumes:
       - node_app:/app
     working_dir: /app/
-    # networks:
-    #   - coolify
-    # labels:
-    #   - traefik.enable=true
-    #   - traefik.http.routers.payload_https.rule=Host(`${SERVICE_FQDN_PAYLOAD}`) && PathPrefix(`/`)
-    #   - traefik.http.routers.payload_https.entryPoints=https
-    #   - traefik.http.routers.payload_https.middlewares=gzip
-    #   - traefik.http.routers.payload_https.service=payload
-    #   - traefik.http.routers.payload_https.tls=true
-    #   - traefik.http.services.payload.loadbalancer.server.port=443
-    #   - traefik.http.routers.payload_https.tls.certresolver=letsencrypt
-    #   - traefik.http.routers.payload_http.rule=Host(`${SERVICE_FQDN_PAYLOAD}`) && PathPrefix(`/`)
-    #   - traefik.http.routers.payload_http.entryPoints=http
-    #   - traefik.http.routers.payload_http.middlewares=redirect-to-https
+    networks:
+      - coolify
 volumes:
   node_app:
 
