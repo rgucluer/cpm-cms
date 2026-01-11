@@ -30,6 +30,9 @@ services:
       - 'traefik.http.routers.app-root.entrypoints=https'
       - 'traefik.http.routers.app-root.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.app-root.middlewares=redirect-to-www'
+      - 'traefik.http.routers.app-root-http.rule=Host(`${APP_ROOT_DN}`)'
+      - 'traefik.http.routers.app-root-http.entrypoints=http'
+      - 'traefik.http.routers.app-root-http.middlewares=redirect-to-www'
 volumes:
   node_app:
 
