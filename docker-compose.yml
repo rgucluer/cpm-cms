@@ -24,12 +24,3 @@ services:
       - coolify
 volumes:
   node_app:
-labels:
-  - 'traefik.http.middlewares.root-to-www.redirectregex.regex=^https?://iact.dev/(.*)'
-  - 'traefik.http.middlewares.root-to-www.redirectregex.replacement=https://www.iact.dev/$${1}'
-  - 'traefik.http.middlewares.root-to-www.redirectregex.permanent=true'
-  - 'traefik.http.routers.root-redirect-router.rule=Host(`iact.dev`)'
-  - 'traefik.http.routers.root-redirect-router.entrypoints=https'
-  - 'traefik.http.routers.root-redirect-router.middlewares=root-to-www'
-  - 'traefik.http.routers.root-redirect-router.tls=true'
-  - 'traefik.http.routers.root-redirect-router.tls.certresolver=letsencrypt'
