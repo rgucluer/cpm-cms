@@ -8,6 +8,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      # Limits Node.js to 2GB of RAM to prevent the container from crashing the VPS
+      - 'NODE_OPTIONS=--max-old-space-size=2048'
     healthcheck:
       test: 'curl -f --head http://127.0.0.1:3000 || exit 1'
       interval: 10s
