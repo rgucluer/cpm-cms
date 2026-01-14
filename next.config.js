@@ -29,6 +29,10 @@ const nextConfig = {
 
     return webpackConfig
   },
+  experimental: {
+    webpackMemoryOptimizations: true,
+  },
+  productionBrowserSourceMaps: false,
   reactStrictMode: true,
   redirects,
 }
