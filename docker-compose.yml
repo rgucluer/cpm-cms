@@ -31,15 +31,8 @@ services:
       traefik.enable: true
       coolify.managed: true
       coolify.proxy: true
-      traefik.http.routers.payload-https.rule: "Host(`${APP_ROOT_DN}`)"
-      traefik.http.routers.payload-https.entryPoints: "https"
-      traefik.http.routers.payload-https.middlewares: "authentication@file"
-      traefik.http.routers.payload-https.tls: true
-      traefik.http.routers.payload-https.tls.domains[0].main: "${APP_ROOT_DN}"
-      traefik.http.routers.payload-https.tls.certresolver: "letsencrypt"
-      traefik.http.routers.payload-https.service: "payload-${COMPOSE_PROJECT_NAME}"
-    # depends_on:
-    #   - "traefik"
+    depends_on:
+      - "traefik"
 
 volumes:
   node_app:
