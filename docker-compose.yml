@@ -31,8 +31,6 @@ services:
       traefik.enable: true
       coolify.managed: true
       coolify.proxy: true
-    depends_on:
-      - "traefik"
 
 volumes:
   node_app:
