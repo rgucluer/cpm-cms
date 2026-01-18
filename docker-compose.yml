@@ -25,6 +25,7 @@ services:
       - 3000    
     volumes:
       - node_app:/app
+      - payload_media:/app/public/media
     working_dir: /app/
     networks:
       - coolify
@@ -35,3 +36,4 @@ services:
 
 volumes:
   node_app:
+  payload_media:
