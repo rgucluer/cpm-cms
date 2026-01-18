@@ -16,6 +16,7 @@ const nextConfig = {
         return {
           hostname: url.hostname,
           protocol: url.protocol.replace(':', ''),
+          pathname: '/media/**',
         }
       }),
     ],
