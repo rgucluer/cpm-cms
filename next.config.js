@@ -34,7 +34,6 @@ const nextConfig = {
     webpackMemoryOptimizations: true,
   },
   output: 'standalone',
-  productionBrowserSourceMaps: false,
   reactStrictMode: true,
   redirects,
 }
