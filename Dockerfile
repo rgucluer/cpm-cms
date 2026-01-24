@@ -14,7 +14,7 @@ RUN corepack enable pnpm
 
 # Install dependencies only when needed
 FROM base AS deps
-WORKDIR /app
+WORKDIR /home/node/app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
@@ -29,15 +29,14 @@ RUN \
 # Builder Stage
 # ========================================
 FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+WORKDIR /home/node/app
+COPY --from=deps /home/node/app/node_modules ./node_modules
 COPY . .
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
-ENV NEXT_PRIVATE_STANDALONE=true
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
@@ -50,7 +49,7 @@ RUN \
 # Runner Stage
 # ========================================
 FROM base AS runner
-WORKDIR /app
+WORKDIR /home/node/app
 
 ENV NODE_ENV production
 
@@ -61,7 +60,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Remove this line if you do not have this folder
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /home/node/app/public ./public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
@@ -72,8 +71,8 @@ RUN chown nextjs:nodejs /app/public/media
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /home/node/app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /home/node/app/.next/static ./.next/static
 
 USER nextjs
 
