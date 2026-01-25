@@ -49,7 +49,7 @@ RUN \
 # Runner Stage
 # ========================================
 FROM base AS runner
-WORKDIR /home/node/app
+WORKDIR /app
 
 ENV NODE_ENV production
 
@@ -59,14 +59,14 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN adduser --system --uid 1001 nextjs -G node
 
 # Remove this line if you do not have this folder
-COPY --from=builder --chown=nextjs:node /app/public /home/node/app/public
+COPY --from=builder --chown=nextjs:node /app/public /app/public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
 RUN chown nextjs:node .next
 
-RUN mkdir /home/node/app/public/media
-RUN chown nextjs:node /home/node/app/public/media
+RUN mkdir /app/public/media
+RUN chown nextjs:node /app/public/media
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
