@@ -24,7 +24,7 @@ services:
     expose:
       - 3000    
     volumes:
-      - node_app:/home/node/app
+      - .:/home/node/app
       - node_modules:/home/node/app/node_modules
       - payload_media:/home/node/app/public/media
     working_dir: /home/node/app/
