@@ -16,7 +16,6 @@ const nextConfig = {
         return {
           hostname: url.hostname,
           protocol: url.protocol.replace(':', ''),
-          pathname: '/media/**',
         }
       }),
     ],
@@ -33,7 +32,7 @@ const nextConfig = {
   experimental: {
     webpackMemoryOptimizations: true,
   },
-  output: 'standalone',
+  /* output: 'standalone', */
   reactStrictMode: true,
   redirects,
 }
