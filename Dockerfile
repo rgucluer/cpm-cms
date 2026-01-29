@@ -14,6 +14,7 @@ RUN corepack enable pnpm
 
 # Install dependencies only when needed
 FROM base AS deps
+RUN corepack enable pnpm
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
@@ -29,6 +30,7 @@ RUN \
 # Builder Stage
 # ========================================
 FROM base AS builder
+RUN corepack enable pnpm
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -49,6 +51,7 @@ RUN \
 # Runner Stage
 # ========================================
 FROM base AS runner
+RUN corepack enable pnpm
 WORKDIR /app
 
 ARG NODE_ENV=production
