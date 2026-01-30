@@ -3,9 +3,10 @@
 # To use this Dockerfile, you have to set `output: 'standalone'` in your next.config.js file.
 # From https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 
-FROM node:22.17.0-alpine AS base
+FROM node:22-alpine AS base
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat python3 make g++ git curl
+RUN apk add --no-cache libc6-compat python3 make g++ git curl bash
+RUN npm install --global corepack@latest
 RUN corepack enable pnpm
 
 # ========================================
@@ -14,7 +15,6 @@ RUN corepack enable pnpm
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN corepack enable pnpm
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
@@ -61,6 +61,9 @@ ENV NODE_ENV=$NODE_ENV
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN adduser --system --uid 1001 nextjs -G node
+
+COPY --chown=nextjs:node . .
+COPY --from=deps --chown=nextjs:node /app/node_modules ./node_modules
 
 # Remove this line if you do not have this folder
 COPY --from=builder --chown=nextjs:node /app/public /app/public
