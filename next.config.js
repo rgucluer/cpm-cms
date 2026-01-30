@@ -32,7 +32,7 @@ const nextConfig = {
   experimental: {
     webpackMemoryOptimizations: true,
   },
-  /* output: 'standalone', */
+  output: 'standalone',
   reactStrictMode: true,
   redirects,
 }
