@@ -71,9 +71,6 @@ COPY --from=deps --chown=nextjs:node /app/node_modules ./node_modules
 RUN mkdir .next
 RUN chown nextjs:node .next
 
-RUN mkdir /app/public/media
-RUN chown nextjs:node /app/public/media
-
 # COPY --from=builder --chown=nextjs:node /app/.next/static ./.next/static
 
 USER nextjs

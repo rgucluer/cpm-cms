@@ -72,9 +72,6 @@ COPY --from=builder --chown=nextjs:node /app/public /app/public
 RUN mkdir .next
 RUN chown nextjs:node .next
 
-RUN mkdir /app/public/media
-RUN chown nextjs:node /app/public/media
-
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:node /app/.next/standalone ./
