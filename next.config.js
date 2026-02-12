@@ -6,6 +6,9 @@ const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
   ? `${process.env.NEXT_PUBLIC_SERVER_URL}`
   : undefined || process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
+const APP_ROOT_DN = process.env.APP_ROOT_DN
+const SERV_L_IP = process.env.SERV_L_IP
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -34,6 +37,7 @@ const nextConfig = {
   },
   output: 'standalone',
   reactStrictMode: true,
+  allowedDevOrigins: ['localhost', SERV_L_IP, APP_ROOT_DN, '*.' + APP_ROOT_DN],
   redirects,
 }
 
