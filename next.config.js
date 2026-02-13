@@ -37,7 +37,7 @@ const nextConfig = {
   },
   output: 'standalone',
   reactStrictMode: true,
-  allowedDevOrigins: ['localhost', SERV_L_IP, APP_ROOT_DN, '*.' + APP_ROOT_DN],
+  allowedDevOrigins: [APP_ROOT_DN, '*.' + APP_ROOT_DN],
   redirects,
 }
 
