@@ -25,7 +25,7 @@ const nextConfig = {
       {
         hostname: 'www.' + APP_ROOT_DN,
         protocol: 'https',
-        pathname: '/media/**',
+        pathname: '/**',
       },
     ],
   },
