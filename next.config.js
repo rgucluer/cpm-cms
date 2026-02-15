@@ -22,11 +22,6 @@ const nextConfig = {
           pathname: '/media/**',
         }
       }),
-      {
-        hostname: 'www.' + APP_ROOT_DN,
-        protocol: 'https',
-        pathname: '/**',
-      },
     ],
   },
   webpack: (webpackConfig) => {
@@ -46,7 +41,5 @@ const nextConfig = {
   allowedDevOrigins: [APP_ROOT_DN, '*.' + APP_ROOT_DN],
   redirects,
 }
-
-console.log('Current Remote Patterns:', JSON.stringify(nextConfig.images.remotePatterns, null, 2))
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
