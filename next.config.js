@@ -22,6 +22,11 @@ const nextConfig = {
           pathname: '/media/**',
         }
       }),
+      {
+        hostname: 'www.' + APP_ROOT_DN,
+        protocol: 'https',
+        pathname: '/media/**',
+      },
     ],
   },
   webpack: (webpackConfig) => {
