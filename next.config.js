@@ -47,4 +47,6 @@ const nextConfig = {
   redirects,
 }
 
+console.log('Current Remote Patterns:', JSON.stringify(nextConfig.images.remotePatterns, null, 2))
+
 export default withPayload(nextConfig, { devBundleServerPackages: false })
