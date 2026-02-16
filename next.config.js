@@ -8,22 +8,23 @@ const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
 
 const APP_ROOT_DN = process.env.APP_ROOT_DN
 const SERV_L_IP = process.env.SERV_L_IP
+const HOSTNAME = process.env.HOSTNAME
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
-        const url = new URL(item)
+  // images: {
+  //   remotePatterns: [
+  //     ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
+  //       const url = new URL(item)
 
-        return {
-          hostname: url.hostname,
-          protocol: url.protocol.replace(':', ''),
-          pathname: '/media/**',
-        }
-      }),
-    ],
-  },
+  //       return {
+  //         hostname: url.hostname,
+  //         protocol: url.protocol.replace(':', ''),
+  //         pathname: '/media/**',
+  //       }
+  //     }),
+  //   ],
+  // },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
@@ -38,7 +39,7 @@ const nextConfig = {
   },
   output: 'standalone',
   reactStrictMode: true,
-  allowedDevOrigins: [APP_ROOT_DN, '*.' + APP_ROOT_DN],
+  allowedDevOrigins: ['127.0.0.1', 'localhost', SERV_L_IP, APP_ROOT_DN, '*.' + APP_ROOT_DN],
   redirects,
 }
 
