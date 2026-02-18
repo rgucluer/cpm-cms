@@ -7,7 +7,6 @@ const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
   : undefined || process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
 const APP_ROOT_DN = process.env.APP_ROOT_DN
-const HOSTNAME = process.env.HOSTNAME
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
