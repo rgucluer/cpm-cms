@@ -72,7 +72,8 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
     const cacheTag = resource.updatedAt
 
-    src = getMediaUrl(url, cacheTag)
+    // src = getMediaUrl(url, cacheTag)
+    src = 'getMediaUrl'
   }
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
@@ -87,13 +88,6 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   return (
     <picture className={cn(pictureClassName)}>
       <NextImage
-        unoptimized
-        src={src}
-        width={!fill ? width : undefined}
-        height={!fill ? height : undefined}
-        alt={alt || ''}
-      />
-      {/* <NextImage
         alt={alt || ''}
         className={cn(imgClassName)}
         fill={fill}
@@ -106,7 +100,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         sizes={sizes}
         src={src}
         width={!fill ? width : undefined}
-      /> */}
+      />
     </picture>
   )
 }
