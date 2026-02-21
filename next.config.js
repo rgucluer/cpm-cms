@@ -10,19 +10,19 @@ const APP_ROOT_DN = process.env.APP_ROOT_DN
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // images: {
-  //   remotePatterns: [
-  //     ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
-  //       const url = new URL(item)
+  images: {
+    remotePatterns: [
+      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
+        const url = new URL(item)
 
-  //       return {
-  //         hostname: url.hostname,
-  //         protocol: url.protocol.replace(':', ''),
-  //         pathname: '/media/**',
-  //       }
-  //     }),
-  //   ],
-  // },
+        return {
+          hostname: url.hostname,
+          protocol: url.protocol.replace(':', ''),
+          pathname: '/media/**',
+        }
+      }),
+    ],
+  },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
