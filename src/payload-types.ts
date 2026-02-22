@@ -36,7 +36,6 @@ export type SupportedTimezones =
   | 'Atlantic/Cape_Verde'
   | 'Europe/London'
   | 'Europe/Berlin'
-  | 'Europe/Istanbul'
   | 'Africa/Lagos'
   | 'Europe/Athens'
   | 'Africa/Cairo'
