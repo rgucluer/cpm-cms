@@ -2,9 +2,11 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 import redirects from './redirects.js'
 
-const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
-  ? `${process.env.NEXT_PUBLIC_SERVER_URL}`
-  : undefined || process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
+// const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
+//   ? `${process.env.NEXT_PUBLIC_SERVER_URL}`
+//   : undefined || 'http://localhost:3000'
+
+const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
 const APP_ROOT_DN = process.env.APP_ROOT_DN
 
@@ -16,11 +18,18 @@ const nextConfig = {
         const url = new URL(item)
 
         return {
-          hostname: url.hostname,
           protocol: url.protocol.replace(':', ''),
-          pathname: '/media/**',
+          hostname: url.hostname,
+          port: url.port || '',
+          pathname: '/api/media/file/**',
         }
       }),
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/api/media/file/**',
+      },
     ],
   },
   webpack: (webpackConfig) => {
