@@ -13,6 +13,7 @@ const APP_ROOT_DN = process.env.APP_ROOT_DN
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: ['localhost', 'www.' + APP_ROOT_DN],
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
         const url = new URL(item)
