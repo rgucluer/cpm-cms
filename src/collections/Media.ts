@@ -45,6 +45,7 @@ export const Media: CollectionConfig = {
     staticDir: 'public/media',
     adminThumbnail: 'thumbnail',
     focalPoint: true,
+    mimeTypes: ['image/*'],
     imageSizes: [
       {
         name: 'thumbnail',
