@@ -28,20 +28,10 @@ const nextConfig = {
         const url = new URL(item)
 
         return {
-          protocol: 'https',
+          protocol: url.protocol.replace(':', ''),
           hostname: url.hostname,
-          port: url.port || '',
-          pathname: '/_next/image?url=' + NEXT_PUBLIC_SERVER_URL + '/api/media/file/**',
-        }
-      }),
-      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
-        const url = new URL(item)
-
-        return {
-          protocol: 'http',
-          hostname: url.hostname,
-          port: url.port || '',
-          pathname: '/_next/image?url=' + NEXT_PUBLIC_SERVER_URL + '/api/media/file/**',
+          port: '',
+          pathname: '/_next/image/**',
         }
       }),
       {
