@@ -21,7 +21,7 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
           hostname: url.hostname,
           port: url.port || '',
-          pathname: '/media/**',
+          pathname: '/_next/image**',
         }
       }),
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
@@ -41,7 +41,7 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
           hostname: url.hostname,
           port: url.port || '',
-          pathname: '/_next/image/**',
+          pathname: '/media/**',
         }
       }),
       {
