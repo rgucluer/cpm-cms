@@ -22,6 +22,7 @@ const nextConfig = {
           hostname: url.hostname,
           port: url.port || '',
           pathname: '/_next/image**',
+          url: NEXT_PUBLIC_SERVER_URL + '/api/media/file/**',
         }
       }),
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
