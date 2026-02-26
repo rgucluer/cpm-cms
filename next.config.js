@@ -14,6 +14,12 @@ const APP_ROOT_DN = process.env.APP_ROOT_DN
 const nextConfig = {
   images: {
     remotePatterns: [
+      new URL(
+        NEXT_PUBLIC_SERVER_URL +
+          '/_next/image?url=' +
+          NEXT_PUBLIC_SERVER_URL +
+          '/api/media/file/**',
+      ),
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
         const url = new URL(item)
 
