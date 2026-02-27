@@ -19,7 +19,7 @@ const nextConfig = {
         hostname: 'www.' + APP_ROOT_DN,
         port: '',
         pathname: '/_next/image',
-        search: '?url=' + NEXT_PUBLIC_SERVER_URL + '/api/media/file/**' + '?**',
+        search: '?url=' + NEXT_PUBLIC_SERVER_URL + '/api/media/file/**',
       },
       new URL(
         NEXT_PUBLIC_SERVER_URL +
