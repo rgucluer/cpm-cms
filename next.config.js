@@ -14,19 +14,6 @@ const APP_ROOT_DN = process.env.APP_ROOT_DN
 const nextConfig = {
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'www.' + APP_ROOT_DN,
-        port: '',
-        pathname: '/_next/image',
-        search: '?url=' + NEXT_PUBLIC_SERVER_URL + '/api/media/file/**',
-      },
-      new URL(
-        NEXT_PUBLIC_SERVER_URL +
-          '/_next/image?url=' +
-          NEXT_PUBLIC_SERVER_URL +
-          '/api/media/file/**',
-      ),
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
         const url = new URL(item)
 
