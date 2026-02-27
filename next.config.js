@@ -16,7 +16,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'www' + APP_ROOT_DN,
+        hostname: 'www.' + APP_ROOT_DN,
         port: '',
         pathname: '/_next/image',
         search: '?url=' + NEXT_PUBLIC_SERVER_URL + '/api/media/file/**' + '?**',
