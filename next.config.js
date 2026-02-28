@@ -21,6 +21,16 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
           hostname: url.hostname,
           port: url.port || '',
+          pathname: '/_next/static/chunks/**',
+        }
+      }),
+      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
+        const url = new URL(item)
+
+        return {
+          protocol: url.protocol.replace(':', ''),
+          hostname: url.hostname,
+          port: url.port || '',
           pathname: '/_next/image**',
         }
       }),

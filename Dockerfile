@@ -66,7 +66,7 @@ COPY --chown=nextjs:node . .
 COPY --from=deps --chown=nextjs:node /app/node_modules ./node_modules
 
 # Remove this line if you do not have this folder
-COPY --from=builder --chown=nextjs:node /app/public /app/public
+COPY --from=builder --chown=nextjs:node /app/public ./public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
