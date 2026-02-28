@@ -65,9 +65,6 @@ RUN adduser --system --uid 1001 nextjs -G node
 COPY --chown=nextjs:node . .
 COPY --from=deps --chown=nextjs:node /app/node_modules ./node_modules
 
-# Remove this line if you do not have this folder
-COPY --from=builder --chown=nextjs:node /app/public ./public
-
 # Set the correct permission for prerender cache
 RUN mkdir .next
 RUN chown nextjs:node .next
@@ -76,6 +73,9 @@ RUN chown nextjs:node .next
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:node /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:node /app/.next/static ./.next/static
+
+# Remove this line if you do not have this folder
+COPY --from=builder --chown=nextjs:node /app/public ./standalone/public
 
 USER nextjs
 
