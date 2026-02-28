@@ -75,7 +75,7 @@ COPY --from=builder --chown=nextjs:node /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:node /app/.next/static ./.next/static
 
 # Remove this line if you do not have this folder
-COPY --from=builder --chown=nextjs:node /app/public ./standalone/public
+COPY --from=builder --chown=nextjs:node /app/public ./public
 
 USER nextjs
 
