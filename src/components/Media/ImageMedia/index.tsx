@@ -87,7 +87,6 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   return (
     <picture className={cn(pictureClassName)}>
       <NextImage
-        unoptimized
         alt={alt || ''}
         className={cn(imgClassName)}
         fill={fill}
