@@ -15,9 +15,16 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'http',
+        hostname: '*',
+        port: '3000',
+        pathname: '/**',
+      },
+      {
         protocol: 'https',
         hostname: '*',
         port: '',
+        pathname: '/**',
       },
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
         const url = new URL(item)
