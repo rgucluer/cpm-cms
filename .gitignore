@@ -6,12 +6,12 @@ node_modules
 .next
 .vercel
 
+# Payload default media upload directory
+public/media/
+
+
 public/robots.txt
-public/sitemap.xml
 public/sitemap*.xml
-public/media/*
-!public/media/website-template-OG*
-!public/media/payload-logo-light.svg
 
 # Playwright
 node_modules/
