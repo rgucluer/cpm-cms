@@ -14,18 +14,19 @@ const APP_ROOT_DN = process.env.APP_ROOT_DN
 const nextConfig = {
   images: {
     remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: '*',
-        port: '3000',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: '*',
-        port: '',
-        pathname: '/**',
-      },
+      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
+        const url = new URL(item)
+
+        return {
+          protocol: url.protocol.replace(':', ''),
+          hostname: url.hostname,
+          port: url.port || '',
+          pathname:
+            '_next/image?url=' +
+            NEXT_PUBLIC_SERVER_URL +
+            '/api/media/file/website-template-OG.webp?2026-03-04T19%3A48%3A17.902Z&w=1920&q=100',
+        }
+      }),
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
         const url = new URL(item)
 
