@@ -28,6 +28,12 @@ const nextConfig = {
         port: '',
         pathname: '/api/media/file/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.devserver1.iact.dev',
+        port: '',
+        pathname: '/media/**',
+      },
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
         const url = new URL(item)
 
