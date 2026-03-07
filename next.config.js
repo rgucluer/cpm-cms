@@ -32,6 +32,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'www.devserver1.iact.dev',
         port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.devserver1.iact.dev',
+        port: '',
         pathname: '/media/**',
       },
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
