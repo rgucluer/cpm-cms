@@ -14,7 +14,6 @@ const nextConfig = {
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
         const url = new URL(item)
-
         return {
           protocol: 'https',
           hostname: url.hostname,
@@ -22,24 +21,6 @@ const nextConfig = {
           pathname: '/_next/static/chunks/**',
         }
       }),
-      {
-        protocol: 'https',
-        hostname: 'www.devserver1.iact.dev',
-        port: '',
-        pathname: '/api/media/file/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.devserver1.iact.dev',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.devserver1.iact.dev',
-        port: '',
-        pathname: '/media/**',
-      },
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
         const url = new URL(item)
 
