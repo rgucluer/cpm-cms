@@ -18,6 +18,15 @@ const nextConfig = {
           protocol: 'https',
           hostname: url.hostname,
           port: url.port || '',
+          pathname: '*',
+        }
+      }),
+      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
+        const url = new URL(item)
+        return {
+          protocol: 'https',
+          hostname: url.hostname,
+          port: url.port || '',
           pathname: '/_next/static/chunks/**',
         }
       }),
