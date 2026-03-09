@@ -101,6 +101,12 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         width={!fill ? width : undefined}
         unoptimized
       />
+      <img
+        src="media/pexels-alix-lee-43379071-34780947.jpg"
+        alt="alternative image"
+        width="400"
+        height="300"
+      />
     </picture>
   )
 }
