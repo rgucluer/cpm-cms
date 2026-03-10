@@ -86,7 +86,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
   return (
     <picture className={cn(pictureClassName)}>
-      {/* <NextImage
+      <NextImage
         alt={alt || ''}
         className={cn(imgClassName)}
         fill={fill}
@@ -99,13 +99,6 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         sizes={sizes}
         src={src}
         width={!fill ? width : undefined}
-        unoptimized
-      /> */}
-      <img
-        src="media/pexels-alix-lee-43379071-34780947.jpg"
-        alt="alternative image"
-        width="400"
-        height="300"
       />
     </picture>
   )
