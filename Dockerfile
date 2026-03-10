@@ -6,7 +6,11 @@
 FROM node:22-alpine AS base
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat python3 make g++ git curl bash
-RUN npm install --global corepack@latest
+
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+
+RUN npm install --global corepack@10.32.0
 RUN corepack enable pnpm
 
 # ========================================
@@ -32,8 +36,13 @@ RUN \
 FROM base AS builder
 RUN corepack enable pnpm
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+
 COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
