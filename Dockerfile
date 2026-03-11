@@ -21,6 +21,9 @@ RUN corepack enable pnpm
 FROM base AS deps
 WORKDIR /app
 
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
@@ -34,6 +37,10 @@ RUN \
 # Builder Stage
 # ========================================
 FROM base AS builder
+
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+
 RUN corepack enable pnpm
 WORKDIR /app
 COPY . .
@@ -56,8 +63,9 @@ RUN \
 # Runner Stage
 # ========================================
 FROM base AS runner
-RUN corepack enable pnpm
 WORKDIR /app
+
+RUN corepack enable pnpm
 
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
