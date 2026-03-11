@@ -78,6 +78,8 @@ RUN chown nextjs:node .next
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:node /app/.next ./
 
+CMD echo ${NODE_ENV}
+
 # Remove this line if you do not have this folder
 COPY --from=builder --chown=nextjs:node /app/public ./public
 
