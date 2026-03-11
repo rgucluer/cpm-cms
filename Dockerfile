@@ -6,7 +6,11 @@
 FROM node:22-alpine AS base
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat python3 make g++ git curl bash
-RUN npm install --global corepack@latest
+
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+
+RUN npm install --global corepack@10.32.0
 RUN corepack enable pnpm
 
 # ========================================
@@ -32,13 +36,14 @@ RUN \
 FROM base AS builder
 RUN corepack enable pnpm
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
-ENV NEXT_TELEMETRY_DISABLED 1
+# ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
@@ -62,8 +67,8 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN adduser --system --uid 1001 nextjs -G node
 
-# COPY --chown=nextjs:node . .
-# COPY --from=deps --chown=nextjs:node /app/node_modules ./node_modules
+COPY --chown=nextjs:node . .
+COPY --from=deps --chown=nextjs:node /app/node_modules ./node_modules
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
