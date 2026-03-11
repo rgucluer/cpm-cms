@@ -10,7 +10,7 @@ RUN apk add --no-cache libc6-compat python3 make g++ git curl bash
 ARG NODE_ENV=development
 ENV NODE_ENV=$NODE_ENV
 
-RUN npm install --global corepack@10.32.1
+RUN npm install --global corepack@latest
 RUN corepack enable pnpm
 
 # ========================================
