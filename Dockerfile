@@ -12,6 +12,7 @@ ENV NODE_ENV=$NODE_ENV
 
 RUN npm install --global corepack@latest
 RUN corepack enable pnpm
+WORKDIR /app
 
 # ========================================
 # Dependencies Stage
@@ -24,7 +25,6 @@ WORKDIR /app
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
 
-# Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
@@ -45,7 +45,6 @@ RUN corepack enable pnpm
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
@@ -87,7 +86,6 @@ RUN chown nextjs:node .next
 COPY --from=builder --chown=nextjs:node /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:node /app/.next/static ./.next/static
 
-# Remove this line if you do not have this folder
 COPY --from=builder --chown=nextjs:node /app/public ./public
 
 USER nextjs
