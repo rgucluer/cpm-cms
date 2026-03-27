@@ -2,6 +2,14 @@
 # From https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 
 FROM node:22.17.0-alpine AS base
+RUN apk add --no-cache libc6-compat python3 make g++ git curl bash
+
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+
+RUN npm install --global corepack@latest
+RUN corepack enable pnpm
+WORKDIR /app
 
 # Install dependencies only when needed
 FROM base AS deps
