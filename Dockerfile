@@ -9,7 +9,7 @@ ENV NODE_ENV=production
 
 RUN npm install --global corepack@latest
 RUN corepack enable pnpm
-WORKDIR /app
+WORKDIR /home/node/app
 
 # ========================================
 # Dependencies Stage
@@ -17,7 +17,7 @@ WORKDIR /app
 
 # Install dependencies only when needed
 FROM base AS deps
-WORKDIR /app
+WORKDIR /home/node/app
 
 ENV NODE_ENV=production
 
@@ -37,9 +37,10 @@ FROM base AS builder
 
 ENV NODE_ENV=production
 
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+WORKDIR /home/node/app
 COPY . .
+COPY --from=deps /home/node/app/node_modules ./node_modules
+
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
@@ -57,32 +58,30 @@ RUN \
 # Runner Stage
 # ========================================
 FROM base AS runner
-WORKDIR /app
+WORKDIR /home/node/app
 
 ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 nextjs
 
-COPY --chown=nextjs:nodejs . .
-COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --chown=node:node . .
+COPY --from=deps --chown=node:node /home/node/app/node_modules ./node_modules
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-COPY --from=builder /app/public ./public
+RUN chown node:node .next
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=node:node /home/node/app/.next/standalone ./
+COPY --from=builder --chown=node:node /home/node/app/.next/static ./.next/static
 
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=node:node /home/node/app/public ./public
 
-USER nextjs
+USER node
 
 EXPOSE 3000
 
