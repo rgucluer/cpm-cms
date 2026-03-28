@@ -7,8 +7,11 @@ RUN apk add --no-cache libc6-compat python3 make g++ git curl bash
 
 ENV NODE_ENV=production
 
+RUN npm install -g npm@11.12.0
 RUN npm install --global corepack@latest
 RUN corepack enable pnpm
+RUN corepack use pnpm@latest-10
+
 WORKDIR /home/node/app
 
 # ========================================
