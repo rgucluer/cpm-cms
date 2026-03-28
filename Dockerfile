@@ -20,7 +20,6 @@ WORKDIR /home/node/app
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN corepack enable pnpm
 WORKDIR /home/node/app
 
 ENV NODE_ENV=production
@@ -40,7 +39,6 @@ RUN \
 FROM base AS builder
 
 ENV NODE_ENV=production
-RUN corepack enable pnpm
 WORKDIR /home/node/app
 COPY . .
 COPY --from=deps /home/node/app/node_modules ./node_modules
@@ -62,7 +60,6 @@ RUN \
 # Runner Stage
 # ========================================
 FROM base AS runner
-RUN corepack enable pnpm
 WORKDIR /home/node/app
 
 ENV NODE_ENV=production
