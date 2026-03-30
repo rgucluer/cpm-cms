@@ -24,7 +24,7 @@ WORKDIR /home/node/app
 ENV NODE_ENV=production
 
 # Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY --chown=node:node package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
@@ -39,8 +39,8 @@ FROM base AS builder
 
 ENV NODE_ENV=production
 WORKDIR /home/node/app
-COPY . .
-COPY --from=deps /home/node/app/node_modules ./node_modules
+COPY --chown=node:node . .
+COPY --from=deps --chown=node:node /home/node/app/node_modules ./node_modules
 
 
 # Next.js collects completely anonymous telemetry data about general usage.
