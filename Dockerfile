@@ -12,6 +12,7 @@ RUN corepack enable pnpm
 RUN corepack use pnpm@latest-10
 
 WORKDIR /home/node/app
+RUN chown -R node:node .
 
 # ========================================
 # Dependencies Stage
