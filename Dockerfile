@@ -12,6 +12,7 @@ RUN corepack enable pnpm
 RUN corepack use pnpm@latest-10
 
 WORKDIR /home/node/app
+RUN chown -R node:node .
 
 # ========================================
 # Dependencies Stage
@@ -81,8 +82,6 @@ COPY --from=builder --chown=node:node /home/node/app/.next/standalone ./
 COPY --from=builder --chown=node:node /home/node/app/.next/static ./.next/static
 
 COPY --from=builder --chown=node:node /home/node/app/public ./public
-
-RUN chown -R node:node .
 
 USER node
 
