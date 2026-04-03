@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
         }
       }),
     ],
+    unoptimized: true,
   },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
