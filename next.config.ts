@@ -28,6 +28,42 @@ const nextConfig: NextConfig = {
           protocol: url.protocol.replace(':', '') as 'http' | 'https',
         }
       }),
+      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
+        const url = new URL(item)
+
+        return {
+          protocol: url.protocol.replace(':', '') as 'http' | 'https',
+          hostname: url.hostname,
+          port: url.port || '',
+          pathname: '/_next/static/chunks/**',
+        }
+      }),
+      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
+        const url = new URL(item)
+
+        return {
+          protocol: url.protocol.replace(':', '') as 'http' | 'https',
+          hostname: url.hostname,
+          port: url.port || '',
+          pathname: '/api/media/file/**',
+        }
+      }),
+      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
+        const url = new URL(item)
+
+        return {
+          protocol: url.protocol.replace(':', '') as 'http' | 'https',
+          hostname: url.hostname,
+          port: url.port || '',
+          pathname: '/media/**',
+        }
+      }),
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/api/media/file/**',
+      },
     ],
     unoptimized: true,
   },
@@ -39,6 +75,9 @@ const nextConfig: NextConfig = {
     }
 
     return webpackConfig
+  },
+  experimental: {
+    webpackMemoryOptimizations: true,
   },
   output: 'standalone',
   reactStrictMode: true,
