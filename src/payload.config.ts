@@ -65,8 +65,7 @@ export default buildConfig({
   globals: [Header, Footer],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
