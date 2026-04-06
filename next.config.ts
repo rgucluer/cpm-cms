@@ -79,7 +79,7 @@ const nextConfig: NextConfig = {
   experimental: {
     webpackMemoryOptimizations: true,
   },
-  // output: 'standalone',
+  output: 'standalone',
   reactStrictMode: true,
   redirects,
   turbopack: {
