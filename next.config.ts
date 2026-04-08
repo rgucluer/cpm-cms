@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
       {
         pathname: '/api/media/file/**',
       },
+      {
+        pathname: '/media/**',
+      },
     ],
     qualities: [100],
     remotePatterns: [
@@ -58,12 +61,6 @@ const nextConfig: NextConfig = {
           pathname: '/media/**',
         }
       }),
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
-        pathname: '/api/media/file/**',
-      },
     ],
     unoptimized: true,
   },
