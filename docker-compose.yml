@@ -1,14 +1,18 @@
+# version: '3'
+
 name: payload
 networks:
   coolify:
     name: coolify
     external: true
+
 services:
   payload:
     container_name: payload
     restart: unless-stopped
     extra_hosts:
       - 'host.docker.internal:host-gateway'
+    # image: node:22.17.0-alpine
     build:
       context: .
       dockerfile: Dockerfile
@@ -22,16 +26,41 @@ services:
       retries: 5
       start_period: 15s
     expose:
-      - 3000    
+      - 3000 
+    # ports:
+    #   - '3000:3000'
     volumes:
-      - node_app:/app
-    working_dir: /app/
+      - node_app:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    working_dir: /home/node/app/
     networks:
       - coolify
+    command: sh -c "node server.js"
     labels:
       traefik.enable: true
       coolify.managed: true
       coolify.proxy: true
+    # depends_on:
+    #   - mongo
+    # env_file:
+    #   - .env
+
+  # Commenting out database service, will use the database created in Coolify
+
+  # mongo:
+  #   image: mongo:latest
+  #   expose:
+  #     - 27017
+  #   # ports:
+  #   #   - '27017:27017'
+  #   command:
+  #     - --storageEngine=wiredTiger
+  #   volumes:
+  #     - data:/data/db
+  #   logging:
+  #     driver: none
 
 volumes:
   node_app:
+  node_modules:
+  # data:  

@@ -60,12 +60,14 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+  // serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL,
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
+
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
