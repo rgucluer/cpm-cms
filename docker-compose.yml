@@ -27,8 +27,6 @@ services:
       start_period: 15s
     expose:
       - 3000 
-    # ports:
-    #   - '3000:3000'
     volumes:
       - node_app:/home/node/app
       - node_modules:/home/node/app/node_modules
@@ -40,27 +38,8 @@ services:
       traefik.enable: true
       coolify.managed: true
       coolify.proxy: true
-    # depends_on:
-    #   - mongo
-    # env_file:
-    #   - .env
-
-  # Commenting out database service, will use the database created in Coolify
-
-  # mongo:
-  #   image: mongo:latest
-  #   expose:
-  #     - 27017
-  #   # ports:
-  #   #   - '27017:27017'
-  #   command:
-  #     - --storageEngine=wiredTiger
-  #   volumes:
-  #     - data:/data/db
-  #   logging:
-  #     driver: none
 
 volumes:
   node_app:
   node_modules:
-  # data:  
+
