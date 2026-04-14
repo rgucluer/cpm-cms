@@ -60,8 +60,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
-  // serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL,
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
