@@ -7,11 +7,15 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 import { redirects } from './redirects'
 
-const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
-  ? process.env.NEXT_PUBLIC_SERVER_URL
-  : process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
+// const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
+//   ? process.env.NEXT_PUBLIC_SERVER_URL
+//   : process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
-const nextConfig: NextConfig = {
+const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
+  ? process.env.NEXT_PUBLIC_SERVER_URL : 'http://localhost:3000'
+
+
+  const nextConfig: NextConfig = {
   images: {
     localPatterns: [
       {
