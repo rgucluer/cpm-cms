@@ -1,6 +1,6 @@
 # version: '3'
 
-name: payload
+name: payload-project
 networks:
   coolify:
     name: coolify
