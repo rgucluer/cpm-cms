@@ -70,7 +70,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 # RUN addgroup --system --gid 1001 nodejs
 # RUN adduser --system --uid 1001 nextjs
 
-COPY --chown=node:node . .
+# COPY --chown=node:node . .
 COPY --from=deps --chown=node:node /home/node/app/node_modules ./node_modules
 
 # Set the correct permission for prerender cache
