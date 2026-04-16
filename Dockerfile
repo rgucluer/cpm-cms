@@ -8,7 +8,6 @@ RUN apk add --no-cache libc6-compat python3 make g++ git curl bash
 WORKDIR /home/node/app
 ENV NODE_ENV=production
 
-
 RUN npm install --global corepack@latest
 
 RUN corepack enable pnpm
@@ -84,6 +83,8 @@ COPY --from=builder --chown=node:node /home/node/app/.next/standalone ./
 COPY --from=builder --chown=node:node /home/node/app/.next/static ./.next/static
 
 COPY --from=builder --chown=node:node /home/node/app/public ./public
+
+RUN chown -R node:node .
 
 USER node
 
