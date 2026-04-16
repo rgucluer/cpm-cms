@@ -34,8 +34,8 @@ services:
     working_dir: /home/node/app/
     networks:
       - coolify
-    # command: 'tail -f /dev/null'
-    command: 'sh -c "node server.js"'
+    command: 'tail -f /dev/null'
+    # command: 'sh -c "node server.js"'
     labels:
       traefik.enable: true
       coolify.managed: true
