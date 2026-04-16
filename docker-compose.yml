@@ -16,6 +16,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      command: tail -f /dev/null
     environment:
       # Limits Node.js to 2GB of RAM to prevent the container from crashing the VPS
       - 'NODE_ENV=production'
