@@ -35,7 +35,7 @@ services:
     networks:
       - coolify
     # command: 'tail -f /dev/null'
-    command: sh -c "node server.js"
+    command: 'sh -c "node server.js"'
     labels:
       traefik.enable: true
       coolify.managed: true
