@@ -1,11 +1,5 @@
 # version: '3'
 
-name: payload-project
-networks:
-  coolify:
-    name: coolify
-    external: true
-
 services:
   payload:
     container_name: payload
@@ -32,8 +26,6 @@ services:
       - node_app:/home/node/app
       - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
-    networks:
-      - coolify
     # command: 'tail -f /dev/null'
     command: 'sh -c "node server.js"'
     labels:
