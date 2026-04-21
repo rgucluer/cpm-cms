@@ -84,7 +84,7 @@ COPY --from=builder --chown=node:node /home/node/app/.next/static ./.next/static
 
 COPY --from=builder --chown=node:node /home/node/app/public ./public
 
-RUN chown -R node:node .
+# RUN chown -R node:node .
 
 USER node
 
