@@ -10,7 +10,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
     environment:
       # Limits Node.js to 2GB of RAM to prevent the container from crashing the VPS
       - 'NODE_ENV=production'
@@ -32,7 +31,6 @@ services:
       traefik.enable: true
       coolify.managed: true
       coolify.proxy: true
-
 volumes:
   node_app:
   node_modules:
