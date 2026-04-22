@@ -31,8 +31,6 @@ services:
       - node_app:/home/node/app
       - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
-    depends_on:
-      - mongodb-payload
     # command: 'tail -f /dev/null'
     command: 'sh -c "node server.js"'
     labels:
