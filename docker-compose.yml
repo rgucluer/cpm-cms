@@ -11,11 +11,7 @@ services:
     image: custom-payload-website:3.81.0
     build:
       context: .
-      # entitlements:
-      #   - network.coolify
-      # isolation: 
       dockerfile: Dockerfile
-      network: coolify
     environment:
       # Limits Node.js to 2GB of RAM to prevent the container from crashing the VPS
       - 'NODE_ENV=production'
