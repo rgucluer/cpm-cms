@@ -7,9 +7,15 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     # image: node:22.17.0-alpine
+    pull_policy: build
+    image: custom-payload-website:3.81.0
     build:
       context: .
+      # entitlements:
+      #   - network.coolify
+      # isolation: 
       dockerfile: Dockerfile
+      network: coolify
     environment:
       # Limits Node.js to 2GB of RAM to prevent the container from crashing the VPS
       - 'NODE_ENV=production'
@@ -25,6 +31,8 @@ services:
       - node_app:/home/node/app
       - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
+    depends_on:
+      - mongodb-payload
     # command: 'tail -f /dev/null'
     command: 'sh -c "node server.js"'
     labels:

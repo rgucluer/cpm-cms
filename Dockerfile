@@ -47,7 +47,7 @@ COPY --from=deps --chown=node:node /home/node/app/node_modules ./node_modules
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
-ENV NEXT_TELEMETRY_DISABLED 1
+# ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
@@ -62,7 +62,7 @@ RUN \
 FROM base AS runner
 
 WORKDIR /home/node/app
-ENV NODE_ENV=production
+ENV NODE_ENV production
 
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1
@@ -77,14 +77,12 @@ COPY --from=deps --chown=node:node /home/node/app/node_modules ./node_modules
 RUN mkdir .next
 RUN chown node:node .next
 
+COPY --from=builder --chown=node:node /home/node/app/public ./public
+
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=node:node /home/node/app/.next/standalone ./
 COPY --from=builder --chown=node:node /home/node/app/.next/static ./.next/static
-
-COPY --from=builder --chown=node:node /home/node/app/public ./public
-
-# RUN chown -R node:node .
 
 USER node
 
