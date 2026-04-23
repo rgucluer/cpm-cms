@@ -12,6 +12,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      network: host
     environment:
       # Limits Node.js to 2GB of RAM to prevent the container from crashing the VPS
       - 'NODE_ENV=production'
