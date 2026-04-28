@@ -5,7 +5,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     pull_policy: build
-    image: custom-payload-website:3.81.0
+    image: custom-payload-website:3.84.1
     build:
       context: .
       dockerfile: Dockerfile
