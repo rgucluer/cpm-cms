@@ -5,13 +5,12 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     pull_policy: build
-    image: custom-payload-website:3.81.0
+    image: custom-payload-website:3.84.1
     build:
       context: .
       dockerfile: Dockerfile
       network: host
     environment:
-      # Limits Node.js to 2GB of RAM to prevent the container from crashing the VPS
       - 'NODE_ENV=production'
     healthcheck:
       test: 'curl -f --head http://127.0.0.1:3000 || exit 1'
