@@ -58,7 +58,7 @@ export default buildConfig({
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: mongooseAdapter({
-    url: process.env.DATABASE_URL || '',
+    url: process.env.DATABASE_URL,
   }),
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   collections: [Pages, Posts, Media, Categories, Users],
