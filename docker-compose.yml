@@ -5,7 +5,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     pull_policy: build
-    image: custom-payload-website:3.85-build.18
+    image: custom-payload-website:3.85-build.20
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,16 +13,26 @@ services:
     environment:
       - 'NODE_ENV=production'
     healthcheck:
-      test: 'wget -qO- http://127.0.0.1:3000 > /dev/null || exit 1'
-      # test: 'true'
-      interval: 10s
-      timeout: 6s
-      retries: 10
-      start_period: 45s
+      # test: 'wget -qO- http://127.0.0.1:3000 > /dev/null || exit 1'
+      test: 'true'
+      interval: 1m
+      timeout: 5s
+      retries: 15
+      # Build takes at least 9 minutes
+      start_period: 20s
     expose:
       - 3000 
-    working_dir: /app/
-    command: 'sh -c "node server.js"'
+    working_dir: /home/node/app/
+    # command: 'sh -c "node server.js"'
+    # command: 'sh -c "tail -f /dev/null"'
+    command: >
+      sh -c '
+      if [ -f ./server.js ]; then
+        node ./server.js;
+      else 
+        tail -f /dev/null;
+      fi
+      '
     labels:
       traefik.enable: true
       coolify.managed: true
