@@ -31,7 +31,6 @@ RUN --mount=type=cache,target=/root/.npm \
   fi
 
 
-# Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
 
