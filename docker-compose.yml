@@ -1,11 +1,10 @@
 services:
   payload:
-    container_name: payload
     restart: unless-stopped
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     pull_policy: build
-    image: custom-payload-website:3.85-build.20
+    image: custom-payload-website:3.85-build.21
     build:
       context: .
       dockerfile: Dockerfile
