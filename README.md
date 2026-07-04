@@ -13,5 +13,11 @@ Run Coolify on a Virtual Private Server.
 ### [Uninstall Coolify](https://github.com/rgucluer/cpm-cms-docs/docs/coolify/uninstall-coolify.md)
 Steps to uninstall Coolify.
 
+-----
 
+## LICENSE
+
+Copyright 2026 Recep GÜÇLÜER rgucluer@gmail.com
+
+cpm-cms is [MIT licensed](LICENSE.md) .
 
