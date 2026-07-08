@@ -22,7 +22,4 @@ node_modules/
 /playwright/.cache/
 
 *.db
-*.old
-*.ignore
-
 

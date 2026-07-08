@@ -1,11 +1,14 @@
 import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from 'payload'
 
+import { contactForm as contactFormData } from './contact-form'
+import { contact as contactPageData } from './contact-page'
 import { home } from './home'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
 import { imageHero1 } from './image-hero-1'
 import { post1 } from './post-1'
-
+import { post2 } from './post-2'
+import { post3 } from './post-3'
 
 const collections: CollectionSlug[] = [
   'categories',
@@ -80,16 +83,22 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding media...`)
 
-  const [image1Buffer, hero1Buffer] = await Promise.all([
+  const [image1Buffer, image2Buffer, image3Buffer, hero1Buffer] = await Promise.all([
     fetchFileByURL(
       'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/3.x/templates/website/src/endpoints/seed/image-post1.webp',
+    ),
+    fetchFileByURL(
+      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/3.x/templates/website/src/endpoints/seed/image-post2.webp',
+    ),
+    fetchFileByURL(
+      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/3.x/templates/website/src/endpoints/seed/image-post3.webp',
     ),
     fetchFileByURL(
       'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/3.x/templates/website/src/endpoints/seed/image-hero1.webp',
     ),
   ])
 
-  const [demoAuthor, image1Doc, imageHomeDoc] = await Promise.all([
+  const [demoAuthor, image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
     payload.create({
       collection: 'users',
       data: {
@@ -102,6 +111,16 @@ export const seed = async ({
       collection: 'media',
       data: image1,
       file: image1Buffer,
+    }),
+    payload.create({
+      collection: 'media',
+      data: image2,
+      file: image2Buffer,
+    }),
+    payload.create({
+      collection: 'media',
+      data: image2,
+      file: image3Buffer,
     }),
     payload.create({
       collection: 'media',
@@ -129,18 +148,71 @@ export const seed = async ({
     context: {
       disableRevalidate: true,
     },
-    data: post1({ heroImage: imageHomeDoc, blockImage: image1Doc, author: demoAuthor }),
+    data: post1({ heroImage: image1Doc, blockImage: image2Doc, author: demoAuthor }),
+  })
+
+  const post2Doc = await payload.create({
+    collection: 'posts',
+    depth: 0,
+    context: {
+      disableRevalidate: true,
+    },
+    data: post2({ heroImage: image2Doc, blockImage: image3Doc, author: demoAuthor }),
+  })
+
+  const post3Doc = await payload.create({
+    collection: 'posts',
+    depth: 0,
+    context: {
+      disableRevalidate: true,
+    },
+    data: post3({ heroImage: image3Doc, blockImage: image1Doc, author: demoAuthor }),
+  })
+
+  // update each post with related posts
+  await payload.update({
+    id: post1Doc.id,
+    collection: 'posts',
+    data: {
+      relatedPosts: [post2Doc.id, post3Doc.id],
+    },
+  })
+  await payload.update({
+    id: post2Doc.id,
+    collection: 'posts',
+    data: {
+      relatedPosts: [post1Doc.id, post3Doc.id],
+    },
+  })
+  await payload.update({
+    id: post3Doc.id,
+    collection: 'posts',
+    data: {
+      relatedPosts: [post1Doc.id, post2Doc.id],
+    },
+  })
+
+  payload.logger.info(`— Seeding contact form...`)
+
+  const contactForm = await payload.create({
+    collection: 'forms',
+    depth: 0,
+    data: contactFormData,
   })
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, ] = await Promise.all([
+  const [_, contactPage] = await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
-      data: home({ heroImage: imageHomeDoc, metaImage: image1Doc }),
+      data: home({ heroImage: imageHomeDoc, metaImage: image2Doc }),
     }),
-
+    payload.create({
+      collection: 'pages',
+      depth: 0,
+      data: contactPageData({ contactForm: contactForm }),
+    }),
   ])
 
   payload.logger.info(`— Seeding globals...`)
@@ -157,6 +229,16 @@ export const seed = async ({
               url: '/posts',
             },
           },
+          {
+            link: {
+              type: 'reference',
+              label: 'Contact',
+              reference: {
+                relationTo: 'pages',
+                value: contactPage.id,
+              },
+            },
+          },
         ],
       },
     }),
@@ -167,9 +249,16 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
+              label: 'Admin',
+              url: '/admin',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
               label: 'Source Code',
               newTab: true,
-              url: 'https://github.com/rgucluer/cpm-cms',
+              url: 'https://github.com/payloadcms/payload/tree/3.x/templates/website',
             },
           },
           {
