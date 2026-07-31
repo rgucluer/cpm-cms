@@ -1,4 +1,5 @@
 allowBuilds:
-  esbuild: false
+  esbuild: true
   sharp: true
-  unrs-resolver: false
+  unrs-resolver: true
+  workerd: true

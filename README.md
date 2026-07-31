@@ -1,26 +1,16 @@
 # cpm-cms Payload Template
 
-This is a modified version of [Payload Website Template](https://github.com/payloadcms/payload/blob/main/templates/website) .
-The aim of this template is to work with a Coolify project. 
-Follow steps in [cpm-cms-docs](https://github.com/rgucluer/cpm-cms-docs) to 
-implement Payload CMS Website template on Coolify instance.
+This is a modified version of [Payload Website Template](https://github.com/payloadcms/payload/tree/v3.86.0/templates/website) . The aim of this template is to work with a Coolify project. 
 
 ## Self Host a Payload CMS Application with Coolify
 
-### [Development Environment](https://github.com/rgucluer/cpm-cms-docs/docs/development.md)
-Run Coolify in a Virtual Machine.
-
-### [Production Environment](https://github.com/rgucluer/cpm-cms-docs/docs/production.md)
-Run Coolify on a Virtual Private Server.
-
-### [Uninstall Coolify](https://github.com/rgucluer/cpm-cms-docs/docs/coolify/uninstall-coolify.md)
-Steps to uninstall Coolify.
+Read the docs: [rgucluer/cpm-cms-docs](https://github.com/rgucluer/cpm-cms-docs)
 
 -----
 
 ## LICENSE
 
-Copyright 2026 Recep GÜÇLÜER rgucluer@gmail.com
+Copyright 2026 Recep GÜÇLÜER `rgucluer@gmail.com`
 
 cpm-cms is [MIT licensed](LICENSE.md) .
 

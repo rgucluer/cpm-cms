@@ -1,17 +1,19 @@
-
 export NODE_ENV=production
 # export NEXT_TELEMETRY_DISABLED=1
 
 cd /app
 
-if [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
+corepack enable
+
+corepack enable pnpm && corepack prepare pnpm@latest-11 --activate
+
+if [ -f pnpm-lock.yaml ]; then pnpm run build; \
 else echo "Lockfile not found." && exit 1; \
 fi
 
 cp -r /app/public /home/node/app/
 cp -r /app/.next/standalone/. /home/node/app/
 
-mkdir /home/node/app/.next
 chown node:node /home/node/app/.next
 cp -r /app/.next/static /home/node/app/.next/static
 

@@ -4,7 +4,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     pull_policy: build
-    image: custom-payload-website:3.85-build.21
+    image: custom-payload-website:3.86.0-build.20
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,8 +16,7 @@ services:
       test: 'true'
       interval: 1m
       timeout: 5s
-      retries: 15
-      # Build takes at least 9 minutes
+      retries: 5
       start_period: 20s
     expose:
       - 3000 

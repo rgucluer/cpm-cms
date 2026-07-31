@@ -1,7 +1,7 @@
 # To use this Dockerfile, you have to set `output: 'standalone'` in your next.config.js file.
 # From https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 
-ARG NODE_VERSION=24.16.0-alpine
+ARG NODE_VERSION=24.18-alpine
 
 FROM node:${NODE_VERSION} AS base 
 
@@ -14,18 +14,12 @@ WORKDIR /app
 RUN corepack enable
 
 # Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml ./
 
 # Install project dependencies with frozen lockfile for reproducible builds
-RUN --mount=type=cache,target=/root/.npm \
-    --mount=type=cache,target=/usr/local/share/.cache/yarn \
-    --mount=type=cache,target=/root/.local/share/pnpm/store \
-  if [ -f package-lock.json ]; then \
-    npm ci --no-audit --no-fund; \
-  elif [ -f yarn.lock ]; then \
-    corepack enable yarn && yarn install --frozen-lockfile --production=false; \
-  elif [ -f pnpm-lock.yaml ]; then \
-    corepack enable pnpm && pnpm install --frozen-lockfile; \
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
+  if [ -f pnpm-lock.yaml ]; then \
+    corepack enable pnpm && corepack prepare pnpm@latest-11 --activate && pnpm install --frozen-lockfile; \
   else \
     echo "No lockfile found." && exit 1; \
   fi
@@ -34,6 +28,8 @@ RUN --mount=type=cache,target=/root/.npm \
 FROM base AS builder
 WORKDIR /app
 
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* pnpm-workspace.yaml ./
+
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
@@ -41,12 +37,19 @@ WORKDIR /app
 
 ENV NODE_ENV production
 
-COPY --from=deps --chown=node:node /app/node_modules ./node_modules
+RUN corepack enable
+
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
+  if [ -f pnpm-lock.yaml ]; then \
+    corepack enable pnpm && corepack prepare pnpm@latest-11 --activate; \
+  else \
+    echo "No lockfile found." && exit 1; \
+  fi
+
 COPY --chown=node:node . .
+COPY --from=deps --chown=node:node /app/node_modules ./node_modules
 COPY --chown=node:node --chmod=744 ./after-deploy.sh ./
 
 EXPOSE 3000
 
 ENV PORT 3000
-
-
